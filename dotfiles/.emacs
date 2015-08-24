@@ -33,6 +33,13 @@
     (setq unix-init-ct-path   "~/.emacs.d/plugins/color-theme/")
     (setq unix-init-ac-path   "~/.emacs.d/plugins/auto-complete/"))
 
+;; Window path-variable
+(when (system-is-windows)
+    (setq win-init-path         "C:/.emacs.d/")
+    (setq win-init-lisp-path    "C:/.emacs.d/lisp")
+    (setq win-init-ct-path      "C:/.emacs.d/plugins/color-theme/")
+    (setq win-init-ac-path      "C:/.emacs.d/plugins/auto-complete"))
+
 ;; Load path for plugin
 (if (system-is-windows)
         (add-to-list 'load-path win-init-path)
