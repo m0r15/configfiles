@@ -31,7 +31,8 @@
     (setq unix-init-path      "~/.emacs.d/")
     (setq unix-init-lisp-path "~/.emacs.d/lisp/")
     (setq unix-init-ct-path   "~/.emacs.d/plugins/color-theme/")
-    (setq unix-init-ac-path   "~/.emacs.d/plugins/auto-complete/"))
+    (setq unix-init-ac-path   "~/.emacs.d/plugins/auto-complete/")
+    (setq unix-init-ac-dict-path "~/.emacs.d/plugins/auto-complete/dict/"))
 
 ;; Window path-variable
 (when (system-is-windows)
@@ -42,6 +43,54 @@
 
 ;; Load path for plugin
 (if (system-is-windows)
+    (progn
         (add-to-list 'load-path win-init-path)
-    (add-to-list 'load-path unix-init-path))
+        (add-to-list 'load-path win-init-lisp-path))
+    (progn
+        (add-to-list 'load-path unix-init-path)
+        (add-to-list 'load-path unix-init-lisp-path)))
 
+;; Indent settings
+(setq-default indent-tabs-mode nil) ; off tab indent
+(setq-default tab-width          4)
+(setq-default c-basic-offset     4)
+(setq-default standart-indent    4)
+(setq-default lisp-body-indent   4)
+(global-set-key (kbd "RET") 'newline-and-indent) 
+(setq lisp-indent-function 'common-lisp-indent-function)
+
+;; Line number activate
+(require 'linum+)
+(setq linum-format " %d")
+(global-linum-mode 1)
+
+;; IDO plugin
+(require 'ido)
+(ido-mode                      t)
+(icomplete-mode                t)
+(ido-everywhere                t)
+(setq ido-virtual-buffers      t)
+(setq ido-enable-flex-matching t)
+
+;; Buffer Selection and ibuffer settings
+(require 'bs)
+(require 'ibuffer)
+(defalias 'list-buffers 'ibuffer) ; list of buffers C-x C-b
+(setq bs-configurations '(("files" "^\\*scratch\\*" nil nil bs-visits-non-file bs-sort-buffer-interns-are-last)))
+(global-set-key (kbd "<f2>") 'bs-show)
+
+;; Popup plugin
+(require 'popup)
+
+;; Auto-complete plugin <http://www.emacswiki.org/emacs/AutoComplete>
+(if (system-is-windows)
+    (add-to-list 'load-path win-init-ac-path)
+    (add-to-list 'load-path unix-init-ac-path))    
+(require 'auto-complete-config)
+(ac-config-default)
+(if (system-is-windows)
+    (add-to-list 'ac-dictionary-directories win-init-ac-dict-path)
+    (add-to-list 'ac-dictionary-directories unix-init-ac-dict-path))
+(setq ac-auto-start t)
+(setq ac-auto-show-menu t)
+(global-auto-complete-mode t)

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Current catalog
+ABSOLUTE_FILENAME=`readlink -e "$0"`
+CURRENT_DIRECTORY=`dirname $ABSOLUTE_FILENAME`
+
+for file in `ls -a $CURRENT_DIRECTORY`
+do
+    if [ $file != "lns" \
+            -a $file != "." \
+            -a $file != ".." \
+            -a $file != ".git" \
+            -a $file != ".gitignore" \
+       ]
+    then
+        to="${HOME}/${file}"
+        printf "%s" "${to} "
+        rm -rf ${to}
+        ln -s ${CURRENT_DIRECTORY}/${file} ${to}
+    fi
+done
+
+echo "End install"
