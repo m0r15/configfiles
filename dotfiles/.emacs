@@ -147,3 +147,18 @@
 (add-to-list 'ac-sources 'ac-source-dictionary)
 (add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;; search in all buffers
 (add-to-list 'ac-sources 'ac-source-files-in-current-dir)
+
+;; Color-theme difinition <http://www.emacswiki.org/emacs/ColorTheme>
+;; choose your theme M-x color-theme-<TAB> RET
+(defun color-theme-init()
+    (require 'color-theme)
+;;    (color-theme-initialize)
+    (setq color-theme-is-global t)
+    (color-theme-charcoal-black))
+(if (system-is-windows)
+    (when (file-directory-p win-init-ct-path)
+        (add-to-list 'load-path win-init-ct-path)
+        (color-theme-init))
+    (when (file-directory-p unix-init-path)
+        (add-to-list 'load-path unix-init-ct-path)
+        (color-theme-init)))
