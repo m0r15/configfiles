@@ -1,0 +1,12 @@
+##############################################################
+# Name:         change_to_main
+# Version:      0.0.1
+# Created:      Aleksey (m0r15) Serenkov
+# e-mail:       serenkovav@gmail.com
+# Date:         2014.11.13
+# Description:  Change main to reserve chanel
+##############################################################
+
+/ip route set gateway=1.1.1.1 [find dst-address=0.0.0.0/0];
+
+:log info "Switch to reserve isp"

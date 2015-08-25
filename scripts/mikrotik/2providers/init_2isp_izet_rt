@@ -1,0 +1,163 @@
+##############################################################
+# Name:         init_2isp_izet_rt
+# Version:      0.0.1
+# Created:      Aleksey (m0r15) Serenkov
+# e-mail:       serenkovav@gmail.com
+# Date:         2014.11.13
+# Description:  Start script, configure router for 2 isp
+##############################################################
+
+#LAN
+:local localNetwork 192.168.10.0
+:local localPrefix /24
+:local localRouteIP 192.168.10.1
+:local localDhcpRange 192.168.10.100-192.168.10.254
+
+:local globalDns 8.8.8.8,8.8.4.4
+:local ntpIp 193.1.193.157
+
+# WAN0
+# InterZet
+:local wan0Comment "InterZet"
+:local wan0Network
+:local wan0Prefix
+:local wan0IP
+:local wan0Gateway
+:local wan0DNS
+#:local wan0
+
+# WLAN
+:local apPasswd 00001234567890000123456789
+
+:local defaultGateway 0.0.0.0/0
+:local putFirewall "FIREWALL >> "
+
+
+
+:put "***********************************";
+:put "* Prepare router for base install *";
+:put "***********************************\n";
+
+#:put "Clean all config..."
+#/system
+
+:put "Set name for router: land-lord";
+/system identity set name=land-lord;
+
+:put "Set interfaces";
+/interface ethernet set 0 name=wan0;
+/interface ethernet set 1 name=wan1;
+/interface ethernet set 2 master-port=none name=ge3-m;
+/interface ethernet set 3 master-port=ge3-m name=ge4-l;
+/interface ethernet set 4 master-port=ge3-m name=ge5-l;
+
+:put "Set switch for locale";
+/interface bridge add name=br0-l auto-mac=no protocol-mode=rstp admin-mac=\
+    [/interface ethernet get ge3-m mac-address];
+/interface ethernet switch set 0 mirror-source=none mirror-target=none\
+    name=sw1;
+/interface bridge port add bridge=br0-l interface=ge3-m;
+/interface bridge settings set\
+    use-ip-firewall=no\
+    use-ip-firewall-for-pppoe=no\
+    use-ip-firewall-for-vlan=no;
+
+:put "PPPOE connect to RT"
+/interface pppoe-client\
+    add name=pppoe-rt\
+    user=ptn password=ptn\
+    interface=wan1\
+    disabled=no;
+
+:put "Set IP addresses";
+/ip address add address=$localRouteIP.$localPrefix disabled=no interface=br0-l\
+     network=$localNetwork;
+/ip address add address=$wan0IP.$wan0Prefix disabled=no interface=wan0\
+     network=$wan0Network;
+
+# TODO: Interzet choose ip.
+:put "Add gateway";
+/ip route add dst-address=$defaultGateway gateway=$wan0Gateway distance=2\
+     comment=$wan0Comment;
+
+:put "DHCP for local network";
+/ip pool add name=lan-dhcp range=$localDhcpRange;
+/ip dhcp-server add address-pool=lan-dhcp interface=br0-l name=default\
+     disabled=no;
+/ip dhcp-server network add address=$localNetwork.$localPrefix\
+     dns-server=$localRouteIP gateway=$localRouteIP;
+
+:put "Config DNS";
+# Interzet name server
+#/ip dns set allow-remote-requests=yes server=;
+/ip dns set allow-remote-requests=yes server=$globalDns;
+/ip dns static add address=$localRouteIP name=router;
+
+### FIREWALL ###
+:put $putFirewall."Create list of ip-addresses";
+/ip firewall address-list add address=$localNetwork.$localPrefix\
+     disabled=no list=inet;
+
+:put $putFirewall."Accept ping";
+/ip firewall filter add action=accept chain=input comment=icmp disabled=no\
+     protocol=icmp;
+
+:put $putFirewall."Accept established and related";
+/ip firewall filter add action=accept chain=input comment=established\
+     connection-state=established disabled=no;
+/ip firewall filter add action=accept chain=input comment=related\
+     connection-state=related disabled=no;
+
+:put $putFirewall."Accept any local"
+/ip firewall filter add action=accept chain=input comment=manage\
+     disabled=no in-interface=br0-l;
+
+:put $putFirewall."Drop all other";
+/ip firewall filter add action=drop chain=input comment="all other drop"\
+     disabled=no in-interface=wan0;
+
+:put $putFirewall."Drop invalid connection";
+/ip firewall filter add action=drop chain=forward\
+     comment="Drop invalid connection packets"\
+     connection-state=invalid disabled=no;
+
+:put $putFirewall."Allow established and related";
+/ip firewall filter add action=accept chain=forward\
+     comment="Allow established connections"\
+     connection-state=established disabled=no;
+/ip firewall filter add action=accept chain=forward\
+     comment="Allow related connections"\
+     connection-state=related disabled=no;
+
+:put $putFirewall."Allow inet";
+/ip firewall filter add action=accept chain=forward\
+     comment="Allow acess to internet"\
+     disabled=no in-interface=br0-l out-interface=wan0 src-address-list=inet;
+
+:put $putFirewall."All other drop";
+/ip firewall filter add action=drop chain=forward comment="All other drop"\
+     disabled=no;
+
+:put $putFirewall."Masquarade";
+/ip firewall nat add action=masquerade chain=srcnat out-interface=wan;
+### END FIREWALL ###
+
+# Set :time
+/system clock set time-zone-name=manual;
+/system clock manual set time-zone=+03:00;
+/system ntp client set enabled=yes mode=unicast primary-ntp=$ntpIp;
+
+:put "Config WiFi";
+/interface wireless security-profiles set 0 mode=dynamic-keys\
+     authentication-types=wpa-psk,wpa2-psk\
+     group-ciphers=aes-ccm\
+     unicast-ciphers=aes-ccm\
+     wpa-pre-shared-key=$apPasswd\
+     wpa2-pre-shared-key=$apPasswd;
+/interface wireless set 0 ssid=land-lord bridge-mode=enabled name=wlan\
+     disabled=no wireless-protocol=any mode=ap-bridge;
+/interface bridge port add bridge=br0-l interface=wlan;
+
+#  Reboot system
+:put "Now reboot..."
+/system reboot
