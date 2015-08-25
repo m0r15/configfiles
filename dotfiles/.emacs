@@ -96,7 +96,7 @@
 
 ;; Line number activate
 (require 'linum+)
-(setq linum-format " %d")
+(setq linum-format " %d ")
 (global-linum-mode 1)
 
 ;; IDO plugin
@@ -144,7 +144,7 @@
 (global-auto-complete-mode t)
 (add-to-list 'ac-sources 'ac-source-variables)
 (add-to-list 'ac-sources 'ac-source-functions)
-(add-to-list 'ac-sources 'ac-source-dictionary)
+(add-to-list 'ac-sources o'ac-source-dictionary)
 (add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;; search in all buffers
 (add-to-list 'ac-sources 'ac-source-files-in-current-dir)
 
@@ -162,3 +162,7 @@
     (when (file-directory-p unix-init-path)
         (add-to-list 'load-path unix-init-ct-path)
         (color-theme-init)))
+
+;; Sr-speedbar http://www.emacswiki.org/emacs/SrSpeedbar
+(require 'sr-speedbar)
+(global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
