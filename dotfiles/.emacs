@@ -3,12 +3,46 @@
 (show-paren-mode 2)
 
 ;; Disable GUI tools and menu
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(tooltip-mode                 -1)
+(menu-bar-mode                -1)
+(tool-bar-mode                -1)
+(scroll-bar-mode              -1)
+(blink-cursor-mode            -1)
+(setq use-dialog-box         nil)
+(setq redisplay-dont-pause     t) ;; more speed for drawing buff
+(setq ring-bell-function 'ignore)
 
 (setq make-backup-files        nil) ; Don't want any backup files
 (setq auto-save-list-file-name nil) ; Don't want any .saves files
 (setq auto-save-default        nil) ; Don't want any auto saving
+
+;; Display the name of the current buffer in the title bar
+(setq frame-title-format "GNU Emacs: %b")
+
+;; Inhibit startup/splash screen
+(setq inhibit-splash-screen t)
+(setq ingibit-startup-message t)
+
+;; Electric-mode settings
+(electric-pair-mode 1) ;; autoclose {},[],()
+(electric-indent-mode -1)
+
+;; Delete selection
+(delete-selection-mode t)
+
+;; Fringe settings
+(fringe-mode '(8 . 0)) ;; limit only left
+(setq-default indicate-empty-lines t)
+(setq-default indicate-buffer-boundaries 'left)
+
+;; Display file size/date in mode-line
+(setq display-time-24hr-format t)
+(display-time-mode             t) ;; show clock in mode-line
+(size-indication-mode          t) ;; size of file in %
+
+;; Line wrapping
+(setq word-wrap          t)
+(global-visual-line-mode t)
 
 ;; System-type difinition
 (defun system-is-linux()
@@ -39,7 +73,8 @@
     (setq win-init-path         "C:/.emacs.d/")
     (setq win-init-lisp-path    "C:/.emacs.d/lisp")
     (setq win-init-ct-path      "C:/.emacs.d/plugins/color-theme/")
-    (setq win-init-ac-path      "C:/.emacs.d/plugins/auto-complete"))
+    (setq win-init-ac-path      "C:/.emacs.d/plugins/auto-complete")
+    (setq win-init-ac-dict-path "C:/.emacs.d/plugins/auto-complete/dict"))
 
 ;; Load path for plugin
 (if (system-is-windows)
@@ -72,6 +107,12 @@
 (setq ido-virtual-buffers      t)
 (setq ido-enable-flex-matching t)
 
+;; Imenu
+(require 'imenu)
+(setq imenu-auto-rescan t) ;; auto reload list in buffer
+(setq imenu-use-popup-menu nil) ;; dialogs Imenu only in minibuffer
+(global-set-key (kbd "<f6>") 'imenu) ;; press F6
+
 ;; Buffer Selection and ibuffer settings
 (require 'bs)
 (require 'ibuffer)
@@ -81,6 +122,13 @@
 
 ;; Popup plugin
 (require 'popup)
+
+;; Org-mode settings
+(require 'org)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cl" 'org-store-link)
+(add-to-list 'auto-mode-alist '("\\.org?" . Org-mode)) ;; assoc with *.org
 
 ;; Auto-complete plugin <http://www.emacswiki.org/emacs/AutoComplete>
 (if (system-is-windows)
@@ -94,3 +142,8 @@
 (setq ac-auto-start t)
 (setq ac-auto-show-menu t)
 (global-auto-complete-mode t)
+(add-to-list 'ac-sources 'ac-source-variables)
+(add-to-list 'ac-sources 'ac-source-functions)
+(add-to-list 'ac-sources 'ac-source-dictionary)
+(add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;; search in all buffers
+(add-to-list 'ac-sources 'ac-source-files-in-current-dir)
