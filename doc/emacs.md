@@ -1,5 +1,7 @@
 # Emacs
 
+http://habrahabr.ru/post/259737/
+
 ## My key bindings
 
 **M-h** - Left
