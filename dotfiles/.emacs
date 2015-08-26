@@ -1,3 +1,40 @@
+;;;;
+;; GNU Emacs configuration file
+;;
+;; Author: m0r15
+;; Contact: serenkovav@gmail.com
+;;;;
+
+;;; System cheking
+(defun system-is-linux()
+    "Linux system checking"
+    (interactive)
+    (string-equal system-type "gnu/linux"))
+
+(defun system-is-windows()
+    "Windows system checking"
+    (interactive)
+    (string-equal system-type "windows-nt"))
+
+
+;;; Start Emacs server
+(when (system-is-linux)
+    (require 'server)
+    (unless (server-running-p)
+        (server-start)))
+
+
+;;; User and email
+(setq user-full-name    "m0r15")
+(setq user-mail-address "serenkovav@gmail.com")
+
+
+;;; Package manager
+;; Initial package and add Melpa repo
+; TODO: Реализовать подключение к Melpa
+
+
+
 ;; Highlight expression in {},[],()
 (setq show-paren-style 'expression)
 (show-paren-mode 2)
@@ -44,21 +81,7 @@
 (setq word-wrap          t)
 (global-visual-line-mode t)
 
-;; System-type difinition
-(defun system-is-linux()
-    (interactive)
-    (string-equal system-type "gnu/linux"))
 
-;; System-type difinition
-(defun system-is-windows()
-    (interactive)
-    (string-equal system-type "windows-nt"))
-
-;; Emacs as server
-(when (system-is-linux)
-    (require 'server)
-    (unless (server-running-p)
-        (server-start)))
 
 ;; Linux path-variable
 (when (system-is-linux)
@@ -125,6 +148,7 @@
 
 ;; Org-mode settings
 (require 'org)
+; FIXME: Нужно поменять сочетание клавиш на org-mode
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cl" 'org-store-link)
@@ -144,7 +168,7 @@
 (global-auto-complete-mode t)
 (add-to-list 'ac-sources 'ac-source-variables)
 (add-to-list 'ac-sources 'ac-source-functions)
-(add-to-list 'ac-sources o'ac-source-dictionary)
+(add-to-list 'ac-sources 'ac-source-dictionary)
 (add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;; search in all buffers
 (add-to-list 'ac-sources 'ac-source-files-in-current-dir)
 
@@ -166,3 +190,63 @@
 ;; Sr-speedbar http://www.emacswiki.org/emacs/SrSpeedbar
 (require 'sr-speedbar)
 (global-set-key (kbd "<f12>") 'sr-speedbar-toggle)
+
+;; Mark-down http://emacswiki.org/emacs/MarkdownMode
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md?" . markdown-mode))
+
+
+
+;;; Key bindings:
+;; Stop using arrow
+(global-unset-key [up])
+(global-unset-key [down])
+(global-unset-key [left])
+(global-unset-key [right])
+
+;; Motion keys
+;; Like vim keys motion
+;; Go to previous line (k - up)
+(global-set-key (kbd "M-k") 'previous-line)
+;; Go to the next line (j - down)
+(global-set-key (kbd "M-j") 'next-line)
+;; Backward char (h - left)
+(global-set-key (kbd "M-h") 'backward-char)
+;; Forward char (l - right)
+(global-set-key (kbd "M-l") 'forward-char)
+;;NOT vim keys
+;; Backward word
+(global-set-key (kbd "M-u") 'backward-word) 
+;; Forward word
+(global-set-key (kbd "M-o") 'forward-word)
+;; Go line begining
+(global-set-key (kbd "M-a") 'beginning-of-visual-line)
+;; Go to line end
+(global-set-key (kbd "M-e") 'end-of-visual-line)
+;; Go function begining
+(global-set-key (kbd "C-a") 'beginning-of-defun)
+;; Go function end
+(global-set-key (kbd "C-e") 'end-of-defun)
+;; Scroll up
+(global-set-key (kbd "M-n") 'scroll-up-command) 
+;; Scroll down
+(global-set-key (kbd "M-b") 'scroll-down-command)
+;; Begining of buffer
+(global-set-key (kbd "M-,") 'beginning-of-buffer)
+;; End of buffer
+(global-set-key (kbd "M-.") 'end-of-buffer)
+;; Backword list
+(global-set-key (kbd "M-[") 'backward-list)
+;; Forward list
+(global-set-key (kbd "M-]") 'forward-list)
+
+;; Killing and Delete
+;; Kill region
+; TODO
+;; Kill region and save
+(global-set-key (kbd "C-c") 'kill-ring-save)
+;; Yank (Paste)
+(global-set-key (kbd "C-v") 'yank)
+;; Kill line
+(global-set-key (kbd "C-d") 'kill-whole-line)
+
