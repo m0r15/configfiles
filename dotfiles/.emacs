@@ -144,7 +144,7 @@
 (global-auto-complete-mode t)
 (add-to-list 'ac-sources 'ac-source-variables)
 (add-to-list 'ac-sources 'ac-source-functions)
-(add-to-list 'ac-sources o'ac-source-dictionary)
+(add-to-list 'ac-sources 'ac-source-dictionary)
 (add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;; search in all buffers
 (add-to-list 'ac-sources 'ac-source-files-in-current-dir)
 
