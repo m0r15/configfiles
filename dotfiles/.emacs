@@ -148,6 +148,7 @@
 
 ;; Org-mode settings
 (require 'org)
+; FIXME: Нужно поменять сочетание клавиш на org-mode
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cl" 'org-store-link)
@@ -196,7 +197,7 @@
 
 
 
-;; Key bindings:
+;;; Key bindings:
 ;; Stop using arrow
 (global-unset-key [up])
 (global-unset-key [down])
@@ -238,4 +239,14 @@
 (global-set-key (kbd "M-[") 'backward-list)
 ;; Forward list
 (global-set-key (kbd "M-]") 'forward-list)
+
+;; Killing and Delete
+;; Kill region
+; TODO
+;; Kill region and save
+(global-set-key (kbd "C-c") 'kill-ring-save)
+;; Yank (Paste)
+(global-set-key (kbd "C-v") 'yank)
+;; Kill line
+(global-set-key (kbd "C-d") 'kill-whole-line)
 
