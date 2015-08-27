@@ -44,9 +44,13 @@
 
 ;; Package list
 (defvar required-packages
-  '(smartparens
+  '(
+    smartparens
     auto-complete
     zenburn-theme))
+
+;; Require Common Lisp extension (needed for loop)
+(require 'cl)
 
 (defun packages-installed-p ()
     "Packages availability checking."
@@ -104,7 +108,7 @@
 (blink-cursor-mode            -1)
 (setq use-dialog-box         nil)
 (setq redisplay-dont-pause     t) ;; more speed for drawing buff
-(setq-default cursor-type 'hbar)
+;(setq-default cursor-type 'hbar)
 (setq ring-bell-function 'ignore)
 
 ;; Fringe
@@ -123,7 +127,7 @@
 
 ;; Coding-system
 (set-language-environment 'UTF-8)
-(if (or (system-is-linux) (system-is-mac))
+(if (system-is-linux)
     (progn
         (setq default-buffer-file-coding-system 'utf-8)
         (setq-default coding-system-for-read    'utf-8)
