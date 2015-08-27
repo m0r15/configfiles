@@ -1,5 +1,7 @@
 # Emacs
 
+http://habrahabr.ru/post/259737/
+
 ## My key bindings
 
 **M-h** - Left
@@ -23,3 +25,11 @@
 **C-c** - Копирование
 **C-v** - Вставить
 **C-d** - Удалить строку и сохранить в буфер
+
+## HOW-TO
+### Get and install package
+
+```
+A-x list-packages
+```
+find for example ergoemacs-mode and install, press `ix`
