@@ -44,7 +44,7 @@
 
 ;; Package list
 (defvar required-packages
-  '(
+  '(ergoemacs-mode
     smartparens
     auto-complete
     zenburn-theme))
@@ -241,7 +241,13 @@
     (setq ac-auto-start t)
     (setq ac-auto-show-menu t)
     (global-auto-complete-mode t)
-    (add-to-list 'ac-modes 'lisp-mode))
+    (add-to-list 'ac-modes 'lisp-mode)
+
+    ;; ergoemacs
+    (require 'ergoemacs-mode)
+    (setq ergoemacs-theme nil) ; Uses standard Ergoemacs keys
+    (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
+    (ergoemacs-mode 1))
 
 
 
