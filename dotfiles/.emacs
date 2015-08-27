@@ -245,7 +245,7 @@
 
     ;; ergoemacs
     (require 'ergoemacs-mode)
-    (setq ergoemacs-theme nil) ; Uses standard Ergoemacs keys
+    (setq ergoemacs-theme lvl2) ; Uses standard Ergoemacs keys
     (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
     (ergoemacs-mode 1))
 
