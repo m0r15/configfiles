@@ -46,8 +46,14 @@
 (defvar required-packages
   '(ergoemacs-mode
     smartparens
-    auto-complete
-    zenburn-theme))
+;    auto-complete
+    zenburn-theme
+    company
+    company-racer
+    flycheck
+    flycheck-rust
+    rust-mode
+    racer))
 
 ;; Require Common Lisp extension (needed for loop)
 (require 'cl)
@@ -85,7 +91,7 @@
 
 ;; Org-mode
 (require 'org)
-(add-to-list 'auto-mode-alist '("\\.org?" . Org-mode)) ;; assoc with *.org
+(add-to-list 'auto-mode-alist '("\\.org?" . org-mode)) ;; assoc with *.org
 
 ;; Inhibit startup/splash screen
 (setq inhibit-splash-screen   t)
@@ -194,7 +200,8 @@
 (setq-default c-basic-offset     4)
 (setq-default standart-indent    4)
 (setq-default lisp-body-indent   4)
-(setq lisp-indkent-function 'common-lisp-indent-function)
+(setq rust-indent-offset         4)
+(setq lisp-indent-function 'common-lisp-indent-function)
 
 ;; Scrolling
 (setq scroll-step               1)
@@ -235,20 +242,49 @@
     (smartparens-global-mode t)
 
     ;; Auto-complete
-    (require 'auto-complete)
-    (require 'auto-complete-config)
-    (ac-config-default)
-    (setq ac-auto-start t)
-    (setq ac-auto-show-menu t)
-    (global-auto-complete-mode t)
-    (add-to-list 'ac-modes 'lisp-mode)
+;    (require 'auto-complete)
+;    (require 'auto-complete-config)
+;    (ac-config-default)
+;    (setq ac-auto-start t)
+;    (setq ac-auto-show-menu t)
+;    (global-auto-complete-mode t)
+;    (add-to-list 'ac-modes 'lisp-mode)
 
     ;; ergoemacs
     (require 'ergoemacs-mode)
     (setq ergoemacs-theme "lvl2") ; Uses standard Ergoemacs keys
     (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
-    (ergoemacs-mode 1))
+    (ergoemacs-mode 1)
 
+    ;; flycheck
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+
+    ;; Company
+    (global-company-mode)
+    (setq company-idle-delay 0.2) ; the time after which company autocomplete
+    (setq company-minimum-prefix-length 1) ; the number of char before company kicks in
+    
+    ;; Rust-mode
+    (if (system-is-linux)
+            (progn 
+                (setq racer-rust-src-path "~/.local/share/rust-src/src/")
+                (setq racer-cmd "~/bin/racer")))
+    (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+    (add-hook 'rust-mode-hook
+              '(lambda ()
+                ;; Enable racer
+                (racer-mode)
+                ;; Hook in racer with eldoc to provide doc
+                (racer-turn-on-eldoc)
+                ;; Use flychecker-rust
+                (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+                ;; Use company racer in rust mode
+                (set (make-local-variable 'company-backends) '(company-racer))
+                ;; Key bind to jump to method def
+                (local-set-key (kbd "M-.") #'racer-find-definition)
+                ;; Key bind to auto compl and indent
+                (local-set-key (kbd "TAB") #'racer-complete-or-indent))) )
+    
 
 
 ;;; Key bindings:

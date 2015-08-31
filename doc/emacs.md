@@ -1,6 +1,7 @@
 # Emacs
 
 http://habrahabr.ru/post/259737/
+http://www.flycheck.org/manual/latest/Usage.html#Usage
 
 ## My key bindings
 
