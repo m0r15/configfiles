@@ -53,7 +53,8 @@
     flycheck
     flycheck-rust
     rust-mode
-    racer))
+    racer
+    emmet-mode))
 
 ;; Require Common Lisp extension (needed for loop)
 (require 'cl)
@@ -283,7 +284,11 @@
                 ;; Key bind to jump to method def
                 (local-set-key (kbd "M-.") #'racer-find-definition)
                 ;; Key bind to auto compl and indent
-                (local-set-key (kbd "TAB") #'racer-complete-or-indent))) )
+                (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
+
+    ;; Emmet-mode
+    (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'css-mode-hook 'emmet-mode))
     
 
 
