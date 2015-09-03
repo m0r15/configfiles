@@ -1,1 +1,3 @@
 *.dat
+dotfiles/.emacs.d/elpa
+dotfiles/.emacs.d/var
