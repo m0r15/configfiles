@@ -1,3 +1,4 @@
 *.dat
 dotfiles/.emacs.d/elpa
 dotfiles/.emacs.d/var
+dotfiles/.emasc.d/auto-save-list/*

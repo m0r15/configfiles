@@ -5,7 +5,7 @@
 ;; Contact: serenkovav@gmail.com
 ;;;;
 
-;;; System cheking
+;; System cheking
 (defun system-is-linux()
     "Linux system checking"
     (interactive)
@@ -256,10 +256,10 @@
 ;    (add-to-list 'ac-modes 'lisp-mode)
 
     ;; ergoemacs
-    (require 'ergoemacs-mode)
-    (setq ergoemacs-theme "lvl2") ; Uses standard Ergoemacs keys
-    (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
-    (ergoemacs-mode 1)
+;    (require 'ergoemacs-mode)
+;    (setq ergoemacs-theme "lvl2") ; Uses standard Ergoemacs keys
+;    (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
+;    (ergoemacs-mode 1)
 
     ;; flycheck
     (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -297,8 +297,108 @@
 
 
 ;;; Key bindings:
+;; Motion keys
+(global-set-key (kbd "M-i") 'previous-line)
+(global-set-key (kbd "M-k") 'next-line)
+(global-set-key (kbd "M-j") 'backward-char)
+(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-u") 'backward-word)
+(global-set-key (kbd "M-o") 'forward-word)
+; Go to line begining
+(global-set-key (kbd "M-a") 'beginning-of-visual-line)
+(global-set-key (kbd "M-e") 'end-of-visual-line)
+; function navigation
+(global-set-key (kbd "C-a") 'beginning-of-defun)
+(global-set-key (kbd "C-e") 'end-of-defun)
+; big navigation
+(global-set-key (kbd "M-n") 'scroll-up-command)
+(global-set-key (kbd "M-h") 'scroll-down-command)
+(global-set-key (kbd "M-,") 'beginning-of-buffer)
+(global-set-key (kbd "M-.") 'end-of-buffer)
+(global-set-key (kbd "M-[") 'backward-list)
+(global-set-key (kbd "M-]") 'forward-list)
 
+;; Killing and deleting
+; Kill region
+(global-set-key (kbd "M-x") 'kill-region)
+; Kill ring and save
+(global-set-key (kbd "M-c") 'kill-ring-save)
+; Yank
+(global-set-key (kbd "M-v") 'yank)
+; Delete backward char
+(global-set-key (kbd "M-d") 'delete-backward-char)
+; Delete forward char
+(global-set-key (kbd "M-f") 'delete-forward-char)
+
+;; Files and buffers
+; Find or create file
+(global-set-key (kbd "C-f") 'ido-find-file)
+; Switch buffer
+(global-set-key (kbd "M-b") 'ido-switch-buffer)
+; Ido kill buffer
+(global-set-key (kbd "C-d") 'ido-kill-buffer)
+; Save file
+(global-set-key (kbd "M-g") 'save-buffer)
+; Ido write file
+(global-set-key (kbd "C-w") 'ido-write-file)
+; Save buffers and kill terminal
+(global-set-key (kbd "C-q") 'save-buffers-kill-terminal)
+;; Delete other window
+(global-set-key (kbd "C-1") 'delete-other-windows)
+;; Split window bellow
+(global-set-key (kbd "C-2") 'split-window-below)
+;; Split window right
+(global-set-key (kbd "C-3") 'split-window-right)
+;; Delete window
+(global-set-key (kbd "C-0") 'delete-window)
+;; Window move up
+(global-set-key (kbd "C-i") 'windmove-up)
+;; Window move down
+(global-set-key (kbd "C-k") 'windmove-down)
+;; Window move left
+(global-set-key (kbd "C-j") 'windmove-left)
+;; Window move right
+(global-set-key (kbd "C-l") 'windmove-right)
+kk
 ;; Commands
+; Undo
+(global-set-key (kbd "M-z") 'undo)
+; Keyboard quit
+(global-set-key (kbd "M-q") 'keyboard-quit)
+; Newline and indent
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+(defun function-newline-and-indent ()
+    "Clever newline."
+    (interactive)
+    (end-of-visual-line)
+    (newline-and-indent))
+(global-set-key (kbd "M-RET") 'function-newline-and-indent)
+
+(defun add-line-above ()
+    "Add line above."
+    (interactive)
+    (previous-line)
+    (function-newline-and-indent))
+(global-set-key (kbd "C-o") 'add-line-above)
+
+;; FIXME: Неверно работает
+(defun C/C++/java/rust-newline ()
+    "Clever C/C++/java/rust-newline"
+    (interactive)
+    (end-of-visual-line)
+    (insert " {")
+    (newline-and-indent)
+    (insert "}")
+    (previous-buffer)
+    (function-newline-and-indent))
+(global-set-key (kbd "M-y") 'C/C++/java/rust-newline)
+
+; Add comment according mode
+(global-set-key (kbd "M-/") 'comment-dwim)
+
+
+;; Function keys:
 ;; bs key
 (global-set-key (kbd "<f2>") 'bs-show)
 ;; Sr-speedbar
@@ -307,5 +407,5 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cl" 'org-store-link)
-;; Newline and indent
-(global-set-key (kbd "RET") 'newline-and-indent)
+
+

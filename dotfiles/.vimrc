@@ -40,7 +40,8 @@ filetype off
 " Plugins
 "call vundle#begin()
 " Airlines
-"Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
+
 " rust-lang plugin
 Plugin 'rust-lang/rust.vim'
 
@@ -57,11 +58,8 @@ Plugin 'fisadev/FixedTaskList.vim'
 "Plugin 'chee/vim-rust'
 "Plugin 'wting/rust.vim'
 
-" Solarize color themes
-"Plugin 'altercation/vim-colors-solarized'
-
 " Add YouCompleteMe plugin for complit
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " Python Jedi-vim autocomplit plugin
 Plugin 'davidhalter/jedi-vim'
