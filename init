@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Install packages
+echo -n "Editors install..."
+sudo apt-get -y update
+sudo apt-get -y install git except build-essential
+echo -n "Emacs..."
+sudo apt-get -y install emacs emacs-goodies-el emacs24-el emacsen-common org-mode dict dict-freedict-eng-rus

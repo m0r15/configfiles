@@ -1,9 +1,9 @@
-;;;;
+;;
 ;; GNU Emacs configuration file
 ;;
 ;; Author: m0r15
 ;; Contact: serenkovav@gmail.com
-;;;;
+;;
 
 ;; System cheking
 (defun system-is-linux()
@@ -46,11 +46,10 @@
 (defvar required-packages
   '(ergoemacs-mode
     smartparens
-;    auto-complete
     zenburn-theme
-;    color-theme-sanityinc-tomorrow
     company
     company-racer
+    projectile
     flycheck
     flycheck-rust
     rust-mode
@@ -246,23 +245,11 @@
     (require 'smartparens-config)
     (smartparens-global-mode t)
 
-    ;; Auto-complete
-;    (require 'auto-complete)
-;    (require 'auto-complete-config)
-;    (ac-config-default)
-;    (setq ac-auto-start t)
-;    (setq ac-auto-show-menu t)
-;    (global-auto-complete-mode t)
-;    (add-to-list 'ac-modes 'lisp-mode)
-
-    ;; ergoemacs
-;    (require 'ergoemacs-mode)
-;    (setq ergoemacs-theme "lvl2") ; Uses standard Ergoemacs keys
-;    (setq ergoemacs-keyboard-layout "us") ; QWERTY keyboard
-;    (ergoemacs-mode 1)
-
     ;; flycheck
     (add-hook 'after-init-hook #'global-flycheck-mode)
+
+    ;; Projectile
+    (projectile-global-mode)
 
     ;; Company
     (global-company-mode)
@@ -359,7 +346,7 @@
 (global-set-key (kbd "C-j") 'windmove-left)
 ;; Window move right
 (global-set-key (kbd "C-l") 'windmove-right)
-kk
+
 ;; Commands
 ; Undo
 (global-set-key (kbd "M-z") 'undo)

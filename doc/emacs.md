@@ -5,9 +5,9 @@ http://www.flycheck.org/manual/latest/Usage.html#Usage
 
 ## My key bindings
 
-**M-h** - Left
-**M-j** - Down
-**M-k** - Up
+**M-i** - Up
+**M-k** - Down
+**M-j** - Left
 **M-l** - Right
 
 **M-u** - На слово назад
@@ -23,9 +23,30 @@ http://www.flycheck.org/manual/latest/Usage.html#Usage
 **M-[** - backward-list
 **M-]** - forward-list
 
-**C-c** - Копирование
-**C-v** - Вставить
-**C-d** - Удалить строку и сохранить в буфер
+**M-x** - вырезать
+**M-c** - копировать
+**M-v** - вставить
+**M-d** - удалить символ назад
+**M-f** - удалить символ вперед
+
+**C-f** - открыть файл
+**M-b** - переключение буферов
+**C-d** - удалить буфер
+**M-g** - сохранить буфер
+**C-w** - записать файл
+**C-q** - exit with save
+**C-0** - удалить текущее окно
+**C-1** - удалить другие окна
+**С-2** - разбить окно горизонтально
+**C-3** - -- вертикально
+**C-i** - по окну вверх
+**C-k** - down
+**C-j** - left
+**C-l** - right
+
+**M-z** - отменить
+**M-q** - еще не понял что делает
+
 
 ## HOW-TO
 ### Get and install package
