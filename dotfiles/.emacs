@@ -339,13 +339,13 @@
 ;; Delete window
 (global-set-key (kbd "C-0") 'delete-window)
 ;; Window move up
-(global-set-key (kbd "C-i") 'windmove-up)
+(global-set-key (kbd "C-M-i") 'windmove-up) 
 ;; Window move down
-(global-set-key (kbd "C-k") 'windmove-down)
+(global-set-key (kbd "C-M-k") 'windmove-down)
 ;; Window move left
-(global-set-key (kbd "C-j") 'windmove-left)
+(global-set-key (kbd "C-M-j") 'windmove-left)
 ;; Window move right
-(global-set-key (kbd "C-l") 'windmove-right)
+(global-set-key (kbd "C-M-l") 'windmove-right)
 
 ;; Commands
 ; Undo
