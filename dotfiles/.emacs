@@ -54,7 +54,8 @@
     flycheck-rust
     rust-mode
     racer
-    emmet-mode))
+    emmet-mode
+    web-mode))
 
 ;; Require Common Lisp extension (needed for loop)
 (require 'cl)
@@ -279,7 +280,12 @@
 
     ;; Emmet-mode
     (add-hook 'sgml-mode-hook 'emmet-mode)
-    (add-hook 'css-mode-hook 'emmet-mode))
+    (add-hook 'css-mode-hook 'emmet-mode)
+    (add-hook 'web-mode-hook 'emmet-mode)
+
+    ;; PHP-mode
+    (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.inc$" . web-mode)))
     
 
 
@@ -307,7 +313,7 @@
 
 ;; Killing and deleting
 ; Kill region
-(global-set-key (kbd "M-x") 'kill-region)
+;(global-set-key (kbd "M-x") 'kill-region)
 ; Kill ring and save
 (global-set-key (kbd "M-c") 'kill-ring-save)
 ; Yank
@@ -339,13 +345,13 @@
 ;; Delete window
 (global-set-key (kbd "C-0") 'delete-window)
 ;; Window move up
-(global-set-key (kbd "C-M-i") 'windmove-up) 
+(global-set-key (kbd "C-S-i") 'windmove-up) 
 ;; Window move down
-(global-set-key (kbd "C-M-k") 'windmove-down)
+(global-set-key (kbd "C-S-k") 'windmove-down)
 ;; Window move left
-(global-set-key (kbd "C-M-j") 'windmove-left)
+(global-set-key (kbd "C-S-j") 'windmove-left)
 ;; Window move right
-(global-set-key (kbd "C-M-l") 'windmove-right)
+(global-set-key (kbd "C-S-l") 'windmove-right)
 
 ;; Commands
 ; Undo

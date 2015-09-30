@@ -39,10 +39,10 @@ http://www.flycheck.org/manual/latest/Usage.html#Usage
 **C-1** - удалить другие окна
 **С-2** - разбить окно горизонтально
 **C-3** - -- вертикально
-**C-M-i** - по окну вверх
-**C-M-k** - down
-**C-M-j** - left
-**C-M-l** - right
+**C-S-i** - по окну вверх
+**C-S-k** - down
+**C-S-j** - left
+**C-S-l** - right
 
 **M-z** - отменить
 **M-q** - еще не понял что делает
