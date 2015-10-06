@@ -14,36 +14,34 @@ set nocompatible
 filetype off
 " Setting up Vundle - the vim plugin bundler
     let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+    let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
     if !filereadable(vundle_readme)
         echo "Installing vundle..."
         echo ""
         silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+        silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
         let iCanHazVundle=0
     endif
-    set rtp+=~/.vim/bundle/vundle
-    call vundle#rc()
-    Bundle "gmarik/vundle"
+    set rtp+=~/.vim/bundle/Vundle.vim
+    "call vundle#begin()
+    "plugin "VundleVim/Vundle.vim"
 
     "... All your other bundles...
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error message"
         echo ""
-        :BundleInstall
-        " TODO: Дописать автоматическую установку плагина YouCompleteMe
-        "   sudo apt-get install cmake
-        "   ./install.sh --clang-completer
+        :PluginInstall
     endif
 " Setting up Vundle - the vim plugin bundler end
 
 " Plugins
-"call vundle#begin()
+call vundle#begin()
+
+"Vundle
+Plugin 'VundleVim/Vundle.vim'
+
 " Airlines
 Plugin 'bling/vim-airline'
-
-" rust-lang plugin
-Plugin 'rust-lang/rust.vim'
 
 " Add code static check on write need to be properly configured
 Plugin 'scrooloose/syntastic'
@@ -52,22 +50,15 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 
 " Pending tasks list
-Plugin 'fisadev/FixedTaskList.vim'
+Plugin 'TaskList.vim'
 
-" Ass Rust for vim
-"Plugin 'chee/vim-rust'
-"Plugin 'wting/rust.vim'
+" Base 16 VIM
+Plugin 'chriskempson/base16-vim'
 
-" Add YouCompleteMe plugin for complit
-"Plugin 'Valloric/YouCompleteMe'
+" Surround
+Plugin 'tpope/vim-surround'
 
-" Python Jedi-vim autocomplit plugin
-Plugin 'davidhalter/jedi-vim'
-
-" Combine Python 2/3 for vim
-Plugin 'mitsuhiko/vim-python-combined'
-
-"call vundle#end()
+call vundle#end()
 " Enable Indent in plugins
 filetype plugin indent on
 
@@ -139,32 +130,6 @@ map <F3> :NERDTreeToggle<CR>
 " hot key List of tasks
 map <F2> :TaskList<CR>
 
-"------------------------------------------------------------------------------
-" YouCompleteMe
-
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-
-let g:ycm_always_populate_location_list=1
-
-" Add the preview string to vim's completeopt option
-let g:ycm_add_preview_to_compleopt=1
-
-" Auto-close to preview window
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" Minimum input chars for complete word
-let g:ycm_min_num_of_chars_for_completion=3
-
-"------------------------------------------------------------------------------
-" Jedi-vim for Python completeon
-
-" Disable choose first function/method at autocomplete
-let g:jedi#popup_select_first=0
-
-
-"------------------------------------------------------------------------------
-" vim-rust
-
 
 "------------------------------------------------------------------------------
 " Colorscheme
@@ -172,7 +137,10 @@ let g:jedi#popup_select_first=0
 " Enable syntax colorise
 syntax on
 
-colorscheme desert
+"colorscheme desert
+colorscheme base16-default
+" Add 256 color terminal
+let base16colorspace=256
 
 " Setting up dark scheme
 set background=dark
@@ -212,7 +180,8 @@ endif
 
 " Show or hide modification word. For example is -- INSERT --
 " if showmode set to hide this word do not display
-set showmode
+"set showmode
+set noshowmode
 
 " Show file name in window title
 set title
@@ -245,7 +214,7 @@ set whichwrap=b,s,<,>,[,],
 set showcmd
 
 " Indicate that last window have a statusline too
-set statusline=2
+set laststatus=2
 
 " Add a line / column display in the bottom right-hand section of the screen.
 " Not needed with airline plugin
@@ -266,9 +235,10 @@ set nowrap
 set number
 
 " Highlight line with cursor
-if has("gui_running")
-    set cursorline
-endif
+"if has("gui_running")
+"    set cursorline
+"endif
+set cursorline
 
 " Hide panel in GUI
 set guioptions-=m
@@ -405,14 +375,14 @@ if has("autocmd")
         au FileType crontab,fstab,make set noexpandtab tabstop=8 shiftwidth=8
 
         " --- Pythom ---
-        au FileType python set completeopt-=preview
-        au FileType python set expandtab shiftwidth=4 tabstop=8
-        \ formatoptions+=croq softtabstop=4 smartindent
-        \ cinwords=if,elif,else,for,while,try,except,finally,def,class, with
+        "au FileType python set completeopt-=preview
+        "au FileType python set expandtab shiftwidth=4 tabstop=8
+        "\ formatoptions+=croq softtabstop=4 smartindent
+        "\ cinwords=if,elif,else,for,while,try,except,finally,def,class, with
 "        au FileType pyrex
 
         " --- Rust ---
-        au BufNewFile,BufRead *.rs set filetype=rust
+        "au BufNewFile,BufRead *.rs set filetype=rust
 
     "Group end
     augroup END
