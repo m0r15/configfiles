@@ -11,6 +11,7 @@ do
             -a $file != ".." \
             -a $file != ".git" \
             -a $file != ".gitignore" \
+            -a $file != ".emacs.d" \
        ]
     then
         to="${HOME}/${file}"

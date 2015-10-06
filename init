@@ -1,8 +1,75 @@
 #!/bin/bash
 
+TRUE=1
+FALSE=0
+
+# sudo password
+stty -echo
+echo -n "password: "
+while [ 1 ]; do
+    read password
+    echo
+    if (echo $password | sudo -S true 2> /dev/null); then
+        break
+    fi
+done
+stty echo
+
+
+# Functions
+request_permission () {
+    if [ -z "$1" ]; then
+       echo -n "Set TRUE? [Yn]: "
+    else
+       echo -n "$1"
+    fi
+    result=$TRUE
+    while [ 1 ]; do 
+       read line
+       case $line in
+           [yY] | "") break;;
+           [Nn]) result=$FALSE; break;;
+           *) echo "Error: [Yy] is expected: "
+       esac
+    done
+    return $result
+}
+###
+
+
+request_permission "Install required package? (require sudo) [Yn]: "
+install_package=$?
+
+request_permission "Clone dotfiles? [Yn]: "
+clone_dotfiles=$?
+
+
 # Install packages
-echo -n "Editors install..."
-sudo apt-get -y update
-sudo apt-get -y install git except build-essential
-echo -n "Emacs..."
-sudo apt-get -y install emacs emacs-goodies-el emacs24-el emacsen-common org-mode dict dict-freedict-eng-rus
+if (( $install_package == $TRUE )); then
+    echo "Editors install..."
+    sudo apt-get -y update
+    sudo apt-get -y install git except build-essential
+    echo "Emacs..."
+    sudo apt-get -y install 
+         emacs \
+         emacs-goodies-el \
+         emacs24-el \
+         emacsen-common \
+         org-mode \
+         dict \
+         dict-freedict-eng-rus
+    echo "VIM ... "
+    sudo apt-get -y install vim-nox 
+    echo "Finish install package."
+fi
+
+# Git config
+
+# Add dotfiles and configs
+if (( $clone_dotfiles == $TRUE )); then
+    echo "Clone dotfiles..."
+    ./dotfiles/lns
+    echo "Finish clone."
+    echo "Git configs..."
+    git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+fi
