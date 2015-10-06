@@ -69,7 +69,8 @@ filetype plugin indent on
 " vim-airline
 
 " Colorscheme for airline
-let g:airline_theme='understated'
+"let g:airline_theme='understated'
+let g:airline_theme='base16'
 
 " Set custom left separator
 let g:airline_left_sep='▶'
