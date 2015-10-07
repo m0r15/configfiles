@@ -1,5 +1,9 @@
+! xrdb -load ~/.Xdefaults
 URxvt*saveLines: 5000
 URxvt.font: -*-clean-medium-r-*-*-14-*-*-*-*-*-*-*
 URxvt.boldFont: -*-clean-bold-r-*-*-14-*-*-*-*-*-*-*
 URxvt*scrollBar: false
+
+URxvt*background: #000000
+URxvt*foreground: #FFFFFF
 
