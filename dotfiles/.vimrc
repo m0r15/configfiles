@@ -43,6 +43,12 @@ Plugin 'VundleVim/Vundle.vim'
 " Airlines
 Plugin 'bling/vim-airline'
 
+" vim-bufferline
+Plugin 'bling/vim-bufferline'
+
+" minibufexpl
+Plugin 'weynhamz/vim-plugin-minibufexpl'
+
 " Add code static check on write need to be properly configured
 Plugin 'scrooloose/syntastic'
 
@@ -57,6 +63,12 @@ Plugin 'chriskempson/base16-vim'
 
 " Surround
 Plugin 'tpope/vim-surround'
+
+" GitGutter
+Plugin 'airblade/vim-gitgutter'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 " Enable Indent in plugins
@@ -73,10 +85,10 @@ filetype plugin indent on
 let g:airline_theme='base16'
 
 " Set custom left separator
-let g:airline_left_sep='▶'
+"let g:airline_left_sep='▶'
 
 " Set custom right separator
-let g:airline_right_sep = '◀'
+"let g:airline_right_sep = '◀'
 
 " Enable airline for tab-bar
 let g:airline#extensions#tabline#enabled = 1
