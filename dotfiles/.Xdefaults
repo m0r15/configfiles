@@ -1,7 +1,8 @@
 ! xrdb -load ~/.Xdefaults
 URxvt*saveLines: 5000
-URxvt.font: -*-clean-medium-r-*-*-14-*-*-*-*-*-*-*
-URxvt.boldFont: -*-clean-bold-r-*-*-14-*-*-*-*-*-*-*
+URxvt.font: xft:Anonymous Pro for Powerline:size=11
+URxvt.boldFont: xft:Anonymous Pro for Powerline:bold:size=11
+URxvt.letterSpace: -1
 URxvt*scrollBar: false
 
 URxvt*background: #000000

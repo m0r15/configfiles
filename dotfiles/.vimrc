@@ -80,6 +80,9 @@ filetype plugin indent on
 "------------------------------------------------------------------------------
 " vim-airline
 
+" Powerline font on
+let g:airline_powerline_fonts = 1
+
 " Colorscheme for airline
 "let g:airline_theme='understated'
 let g:airline_theme='base16'
@@ -94,7 +97,7 @@ let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1
 
 " Don't display buffers in tab-bar with single tab
-let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_buffers = 1
 
 " Display only filename in tab
 let g:airline#extensions#tabline#fnamemod = ':t'
