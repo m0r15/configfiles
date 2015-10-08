@@ -70,6 +70,11 @@ Plugin 'airblade/vim-gitgutter'
 " vim-signify
 Plugin 'mhinz/vim-signify'
 
+" Neo complete
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+
 call vundle#end()
 " Enable Indent in plugins
 filetype plugin indent on
@@ -97,7 +102,7 @@ let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1
 
 " Don't display buffers in tab-bar with single tab
-let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_buffers = 0
 
 " Display only filename in tab
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -145,6 +150,17 @@ map <F3> :NERDTreeToggle<CR>
 
 " hot key List of tasks
 map <F2> :TaskList<CR>
+
+"------------------------------------------------------------------------------
+" Neocomplete
+
+" Disable AutoComplPop
+let g:acp_enableAtStartup = 0
+
+" Use neocomplete
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase
+let g:neocomplete#enable_smart_case = 1
 
 
 "------------------------------------------------------------------------------
