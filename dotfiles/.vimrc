@@ -67,8 +67,8 @@ Plugin 'tpope/vim-surround'
 " GitGutter
 Plugin 'airblade/vim-gitgutter'
 
-" Fugitive
-Plugin 'tpope/vim-fugitive'
+" vim-signify
+Plugin 'mhinz/vim-signify'
 
 call vundle#end()
 " Enable Indent in plugins
