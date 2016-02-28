@@ -127,3 +127,21 @@
 * `git rebase --abort` - гарантировано вернет туда откуда начал.
 * `git reflog` - если потерял коммиты, то это может их вернуть
 * 
+
+---
+## Помощь от Github ##
+create a new repository on the command line
+```bash
+echo "# photobooth" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/m0r15/photobooth.git
+git push -u origin master
+```
+
+push an existing repository from the command line
+```bash
+git remote add origin https://github.com/m0r15/photobooth.git
+git push -u origin master
+```
